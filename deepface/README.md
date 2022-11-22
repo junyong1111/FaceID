@@ -6,6 +6,33 @@
 - 이 라이브러리는 FaceNet 및 InsightFace와 같은 다양한 얼굴 인식 방법을 지원하며 REST API도 제공하지만 인증 방식만 지원하기 때문에 얼굴 모음을 생성하고 그중에서 얼굴을 찾을 수 없다
 - 파이썬 개발자라면 쉽게 시작할 수 있지만 다른 사람들이 통합하기는 어려울 수 있다.
 
+
+#### 기존 face_recognitio은 동양인은 인식이 잘 되지않는다는 문제점이 존재했지만 해당 모델은 동양인 얼굴에서도 높은 인식률을 보여줬다.
+#### 모델은 FaceNet이 인식률이 제일 좋았고 얼굴 탐지는 opencv가 정확하지는 않지만 빨라서 쓰기 좋았다.
+
+
+### 파일구조
+
+```bash
+-FaceID.py
+-SaveimgFromVideo.py
+-README.md
+-UserName
+⎿  UserName1.jpg
+⎿  UserName2.jpg
+⎿  UserName3.jpg
+⎿  ...
+```
+
+### 학습 이미지 준비 - SaveimgFromVideo.py
+
+- def SaveImg(path, name , maximumPic, fps)를 사용하여 저장된 동영상을 이미지로 분할하여 저장
+```python
+#-- 동영상 경로/유저 이름/최대 저장 수/몇 프레임마다 저장할지
+def SaveImg(path, name , maximumPic, fps)
+```
+
+
 ### 설치 
 
 - 다음 명령어를 통해 쉽게 설치 가능
