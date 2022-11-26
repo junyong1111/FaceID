@@ -44,7 +44,7 @@ userName = "CarOwner"
 
 # print(userName)
 
-# SaveImg("user.mp4", userName, 15, 20)
+SaveImg("user.mp4", userName, 15, 20)
 
 threshold, df, model = FaceEmbedding(userName, distance_metric= metricName, model_name= modelName, detector_backend=backendName)
 

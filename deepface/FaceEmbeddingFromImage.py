@@ -33,7 +33,7 @@ def FaceEmbedding(db_path, distance_metric, model_name, detector_backend):
         input_shape = functions.find_input_shape(model)
         input_shape_x = input_shape[0]; input_shape_y = input_shape[1]
         threshold = dst.findThreshold(model_name, distance_metric)
-        tic = time.time()
+        # tic = time.time()
 
 
     pbar = tqdm(range(0, len(employees)), desc='Finding embeddings')
@@ -57,9 +57,9 @@ def FaceEmbedding(db_path, distance_metric, model_name, detector_backend):
     df = pd.DataFrame(embeddings, columns = ['employee', 'embedding'])
     df['distance_metric'] = distance_metric
 
-    toc = time.time()
+    # toc = time.time()
 
-    print("Embeddings found for given data set in ", toc-tic," seconds")
+    print("Embeddings found for given data set")
 
     return threshold, df, model
 #-----------------------
