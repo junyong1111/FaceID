@@ -60,7 +60,7 @@ models = [
     'SFace",
 ]
 model_name = models[1]
-#-- Facenet 선택
+#-- SFace 선택
 ```
 
 3. 유사성 선택
@@ -94,6 +94,7 @@ def stream(...):
         raise ValueError("time_threshold must be greater than the value 1 but you passed" + str(time_threshold))
     if frame_threshold < 0;
         raise ValueError("frame_threshold must be greater than the value 1 but you passed" + str(time_threshold))
+	return realtime.analysis(dp_path, model_name, detector_backend, distance_metric, enable_face_analysis, source = source, time_threshold =time_threshold, frame_threshold  	=frame_threshold)
 ```
 
 ### 사용법_3 - realtime.py

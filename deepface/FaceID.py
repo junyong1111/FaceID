@@ -15,7 +15,7 @@ if gpus:
         print(e)
 
 modelList = [
-    "VGG-Face", 
+   "VGG-Face", 
   "Facenet", 
   "Facenet512", 
   "OpenFace", 
@@ -36,8 +36,8 @@ backendList =[
 metricList = ["cosine", "euclidean", "euclidean_l2"]
 
 
-modelName = modelList[1] #-- FaceNet
-backendName = backendList[0] #-- opnecv
+modelName = modelList[8] #-- SFace가 가장 잘 되는듯
+backendName = backendList[4] #-- opnecv
 metricName = metricList[2] #--euclidean_l2
 
 userName = "CarOwner"
