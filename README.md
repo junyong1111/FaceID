@@ -49,6 +49,8 @@
   - 사용자 ID 값을 Return 하도록 설정
 - FaceEmbeddingFromImage.py 작성
   - 위 코드에서 얼굴 학습만을 따로 제거하여 분리.
+  - 얼굴 학습에서 얼굴 탐지 모델은 ssd를 사용
+    - 다른 모델에 비해 상당히 빠른 학습이 가능
 - 최종 폴더 구성
   - SaveImgFromVideo.py
   - FaceEmbeddingFromImage.py 
