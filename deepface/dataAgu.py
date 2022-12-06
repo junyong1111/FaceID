@@ -1,4 +1,5 @@
 import random
+import tensorflow as tf
 import numpy as np
 import os
 import cv2
@@ -6,8 +7,64 @@ import glob
 from PIL import Image
 from PIL import ImageEnhance
 import PIL.ImageOps    
+import copy
+from random import randint
 
-#다음 변수를 수정하여 새로 만들 이미지 갯수를 정합니다.
+
+os.environ["CUDA_VISIBLE_DEVICES"] = '0'
+gpus = tf.config.experimental.list_physical_devices('GPU')
+if gpus:
+    try:
+        tf.config.experimental.set_memory_growth(gpus[0], True)
+    except RuntimeError as e:
+        print(e)
+
+ 
+def SaltPepper(img): ## 소금후추 노이즈
+    # Getting the dimensions of the image
+    if img.ndim > 2:  # color
+        height, width, _ = img.shape
+    else:  # gray scale
+        height, width = img.shape
+ 
+    result = copy.deepcopy(img)
+ 
+    # Randomly pick some pixels in the image
+    # Pick a random number between height*width/80 and height*width/10
+    number_of_pixels = randint(int(height * width / 100), int(height * width / 10))
+ 
+    for i in range(number_of_pixels):
+        # Pick a random y coordinate
+        y_coord = randint(0, height - 1)
+ 
+        # Pick a random x coordinate
+        x_coord = randint(0, width - 1)
+ 
+        if result.ndim > 2:
+            result[y_coord][x_coord] = [randint(0, 255), randint(0, 255), randint(0, 255)]
+        else:
+            # Color that pixel to white
+            result[y_coord][x_coord] = 255
+ 
+    # Randomly pick some pixels in image
+    # Pick a random number between height*width/80 and height*width/10
+    for i in range(number_of_pixels):
+        # Pick a random y coordinate
+        y_coord = randint(0, height - 1)
+ 
+        # Pick a random x coordinate
+        x_coord = randint(0, width - 1)
+ 
+        if result.ndim > 2:
+            result[y_coord][x_coord] = [randint(0, 255), randint(0, 255), randint(0, 255)]
+        else:
+            # Color that pixel to white
+            result[y_coord][x_coord] = 0
+ 
+    return result
+
+
+
 
 def ImageAgu(num_augmented_images, file_path, augment_cnt, Username):
 
@@ -23,7 +80,9 @@ def ImageAgu(num_augmented_images, file_path, augment_cnt, Username):
         origin_image_path = file_path + file_name
         print(origin_image_path)
         image = Image.open(origin_image_path)
-        random_augment = random.randrange(1,6)
+        random_augment = random.randrange(1,7)
+        
+        
         
         if(random_augment == 1):
             #이미지 좌우 반전
@@ -40,6 +99,7 @@ def ImageAgu(num_augmented_images, file_path, augment_cnt, Username):
         elif(random_augment == 3):
             #노이즈 추가하기
             img = cv2.imread(origin_image_path)
+            img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
             print("noise")
             row,col,ch= img.shape
             mean = 0
@@ -50,15 +110,23 @@ def ImageAgu(num_augmented_images, file_path, augment_cnt, Username):
             noisy_array = img + gauss
             noisy_image = Image.fromarray(np.uint8(noisy_array)).convert()
             noisy_image.save(file_path  + Username +str(augment_cnt) + '.jpg')
+       
         elif(random_augment ==4):
             enhancerImage = ImageEnhance.Brightness(image)
-            brightImg = enhancerImage.enhance(random.uniform(0.8, 2))
+            brightImg = enhancerImage.enhance(random.uniform(0.8, 1.8))
             brightImg.save(file_path  + Username +str(augment_cnt) + '.jpg')
             print("Bright")
+            
         elif(random_augment ==5):
             enhancerContrastImage = ImageEnhance.Contrast(image)
-            contrastImg = enhancerContrastImage.enhance(random.uniform(0.8, 2))
+            contrastImg = enhancerContrastImage.enhance(random.uniform(0.8, 1.8))
             contrastImg.save(file_path  + Username +str(augment_cnt) + '.jpg')
             print("Contrast")
             
+        elif(random_augment ==6):
+            img = cv2.imread(origin_image_path) 
+            img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+            result = SaltPepper(img)
+            result = Image.fromarray(np.uint8(result)).convert()
+            result.save(file_path  + Username + str(augment_cnt) + '.jpg')
         augment_cnt += 1
