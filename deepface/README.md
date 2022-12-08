@@ -16,6 +16,7 @@
 ```bash
 -FaceID.py
 -SaveimgFromVideo.py
+deataAgu.py
 -README.md
 -UserName
 ⎿  UserName1.jpg
@@ -31,8 +32,26 @@
 #-- 동영상 경로/유저 이름/최대 저장 수/몇 프레임마다 저장할지
 def SaveImg(path, name , maximumPic, fps)
 ```
+### 학습 이미지 증폭 - dataAgu.py
 
+```python
+def SaltPepper(img):
+#-- 소금후추 필터 기본이미지에 노이즈를 추가해주는 필터 코드 약간의 시간이 필요
 
+def ImageAgu(num_augmented_images, file_path, augment_cnt, Username):
+#-- num_augmented_images: 증폭을 원하는 이미지 개수
+#-- file_path:  증폭할 이미지가 있는 경로
+#-- augment_cnt: 저장될 이미지 시작 넘버  
+#-- Username: 저장될 이미지 이름
+
+#-- 랜덤으로 해당 이미지를 원하는만큼 변환하여 증폭
+#-- 1. 이미지 좌우 반전
+#-- 2. 이미지 기울이기
+#-- 3. 노이즈 추가
+#-- 4. 밝기 변화
+#-- 5. 대비 변화
+#-- 6. 소금후추 노이즈
+```
 ### 설치 
 
 - 다음 명령어를 통해 쉽게 설치 가능
